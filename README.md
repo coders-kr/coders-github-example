@@ -30,3 +30,9 @@ https://api.coders.kr/coders-kr/coders-github-example/COMMIT/analyze
 ```
 
 기존 Coders-Grant, Coders-Budget, Idempotency-Key 헤더를 사용합니다.
+
+## 첫 접속 동작
+
+같은 커밋은 한 번 준비한 결과를 공유합니다. 이미 준비된 주소는 사용 동의 화면으로 바로
+이동합니다. 준비 화면부터 확인하려면 아직 호출하지 않은 새 커밋 주소를 사용하세요.
+커밋이 달라도 실행 코드는 같을 수 있으며 각 커밋은 별도의 고정 주소를 갖습니다.
