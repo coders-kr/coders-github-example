@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GitHub 텍스트 분석</title>
+<style>
+body{font:16px system-ui;max-width:440px;margin:10vh auto;padding:24px;color:#191b1e}
+textarea,button{box-sizing:border-box;width:100%;padding:14px;border:1px solid #ddd;border-radius:8px;margin:8px 0}
+button{background:#191b1e;color:white;cursor:pointer}pre{white-space:pre-wrap}
+</style>
+<h1>텍스트 분석</h1>
+<form><textarea name="text" required placeholder="분석할 내용을 입력하세요"></textarea><button>분석하기</button></form>
+<pre role="status"></pre>
+<script type="module">
+// Coders SDK는 호출 계좌를 노출하지 않고 프로젝트의 API를 호출합니다.
+import {createClient} from '/_coders/sdk.js';
+const client = createClient(), form = document.querySelector('form'), output = document.querySelector('pre');
+form.onsubmit = async event => {
+  event.preventDefault();
+  try {
+    const result = await client.request('/api/analyze', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({text:form.elements.text.value})
+    });
+    output.textContent = JSON.stringify(result.data, null, 2);
+    if (result.requiresAccountAction) {
+      const button = document.createElement('button');
+      button.textContent = '계좌 확인';
+      button.onclick = async () => {
+        const action = await client.openAccountWindow(result.accountActionUrl);
+        if (action.status === 'checked') {
+          const retried = await result.retry();
+          output.textContent = JSON.stringify(retried.data, null, 2);
+        }
+      };
+      output.append(button);
+    }
+  } catch {output.textContent = '요청을 처리하지 못했습니다.';}
+};
+</script>
+</html>

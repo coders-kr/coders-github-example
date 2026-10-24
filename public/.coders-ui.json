@@ -1,0 +1,6 @@
+{
+  "title": "GitHub 텍스트 분석",
+  "actions": [{"title": "텍스트 분석", "endpoint": "analyze", "fields": [
+    {"name": "text", "label": "분석할 내용", "multiline": true}
+  ]}]
+}
