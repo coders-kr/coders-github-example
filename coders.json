@@ -1,13 +1,9 @@
 {
-  "version": 1,
+  "version": 2,
   "name": "GitHub 텍스트 분석",
   "frontend": {"directory": "public"},
   "endpoints": {
-    "analyze": {
-      "file": "api/analyze.py",
-      "methods": ["POST"],
-      "budget": "11.000"
-    }
+    "analyze": {"path": "/analyze", "methods": ["POST"], "budget": "1.00"}
   },
   "permissions": []
 }
